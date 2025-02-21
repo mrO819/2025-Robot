@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class GripperSubsystem extends SubsystemBase {
 
     
     
@@ -61,7 +61,7 @@ public class IntakeSubsystem extends SubsystemBase {
             m_rightIntakeMotor.setVoltage(0);
         }
         
-        public IntakeSubsystem(){
+        public GripperSubsystem(){
             m_leftCfg.voltageCompensation(12);
             m_leftCfg.follow(m_rightIntakeMotor);
             m_leftIntakeMotor.configure(m_leftCfg, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);

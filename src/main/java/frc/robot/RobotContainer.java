@@ -22,7 +22,7 @@ import frc.robot.commands.intake.ActivateIntake;
 import frc.robot.commands.intake.CloseIntake;
 import frc.robot.commands.intake.DeactivateIntake;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -36,7 +36,7 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 @SuppressWarnings("unused")
 public class RobotContainer
 {
-  IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  GripperSubsystem m_intakeSubsystem = new GripperSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverXbox = new CommandXboxController(0);
   // The robot's subsystems and commands are defined here...
@@ -166,7 +166,11 @@ public class RobotContainer
                                      .andThen(Commands.runOnce(m_intakeSubsystem::stopIntake))
                                      .andThen(Commands.runOnce(m_intakeSubsystem::returnIntake)));
       driverXbox.rightBumper().onTrue(Commands.run(elevator::raiseElevator));
-      driverXbox.axisGreaterThan(2,0.9).onTrue(new ActivateIntake(m_intakeSubsystem)); 
+      //driverXbox.axisGreaterThan(2,0.9).onTrue(new ActivateIntake(m_intakeSubsystem)); 
+      
+driverXbox.axisGreaterThan(2,0.9).onTrue(Commands.runOnce(m_intakeSubsystem::extendIntake)
+                                                      .andThen(Commands.runOnce(m_intakeSubsystem::openIntake))
+                                                      .andThen(Commands.runOnce(m_intakeSubsystem::startIntake)));
       driverXbox.rightTrigger().onTrue(Commands.run(elevator::lowerElevator));
     }
 
